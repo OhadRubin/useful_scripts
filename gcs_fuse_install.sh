@@ -2,6 +2,7 @@
 
 
 BUCKET_NAME=${1:-meliad2_us2_backup}
+echo "mounting $BUCKET_NAME"
 # tail -f ~/gcs_log.log
 while ! command -v gcsfuse &> /dev/null; do
     echo "installing gcsfuse"
