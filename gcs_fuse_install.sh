@@ -2,6 +2,7 @@
 
 
 BUCKET_NAME=${1:-meliad2_us2_backup}
+export MOUNT_POINT=/mnt/gcs_bucket
 echo "mounting $BUCKET_NAME"
 # tail -f ~/gcs_log.log
 while ! command -v gcsfuse &> /dev/null; do
@@ -40,23 +41,14 @@ else
 fi
 
 if [ "$HAS_SUDO" = true ]; then
+    sudo umount -l $MOUNT_POINT
     sudo mkdir -p /mnt/gcs_bucket 2>/dev/null
     sudo chmod -R 777 /mnt/gcs_bucket 2>/dev/null
     echo "user_allow_other" | sudo tee /etc/fuse.conf
     sudo mkdir -p /dev/shm/gcs_cache
     sudo chmod 777 /dev/shm/gcs_cache
     sudo chown -R $USER:$USER /dev/shm/gcs_cache
-else
-    mkdir -p /mnt/gcs_bucket 2>/dev/null
-    chmod -R 777 /mnt/gcs_bucket 2>/dev/null
-fi
-
-# pkill -f -9 gcsfuse
-export MOUNT_POINT=/mnt/gcs_bucket
-echo "checking if gcsfuse is mounted"
-if [ "$HAS_SUDO" = true ]; then
     echo "mounting gcsfuse"
-    sudo umount -l $MOUNT_POINT
     gcsfuse \
         --implicit-dirs \
         --file-cache-enable-parallel-downloads \
@@ -70,6 +62,9 @@ if [ "$HAS_SUDO" = true ]; then
         $BUCKET_NAME $MOUNT_POINT &> ~/gcs_log.log &
     echo 1024 | sudo tee /sys/class/bdi/0:$(stat -c "%d" $MOUNT_POINT)/read_ahead_kb
 else
+
+    mkdir -p /mnt/gcs_bucket 2>/dev/null
+    chmod -R 777 /mnt/gcs_bucket 2>/dev/null
     gcsfuse \
     --implicit-dirs \
     --file-cache-enable-parallel-downloads \
