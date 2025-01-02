@@ -15,4 +15,4 @@ detect_preempt &
 
 # gcloud compute instances simulate-maintenance-event v4-4-node-64 --zone=us-central2-b --with-extended-notifications=True
 
-# gcloud alpha compute tpus tpu-vm simulate-maintenance-event v4-4-node-64 --zone us-central2-b --workers=all --with-extended-notifications=True
+# gcloud alpha compute tpus tpu-vm simulate-maintenance-event v4-64-node-4 --zone us-central2-b --workers=all --with-extended-notifications=True
