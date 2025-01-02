@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage: git clone https://github.com/OhadRubin/useful_scripts.git
-#        GITHUB_ACCESS_TOKEN= ... bash setup_repos.sh repo1 repo2 ... [--setup repo1 repo2 ...]
+#        GITHUB_ACCESS_TOKEN= ... bash useful_scripts/setup_repos.sh repo1 repo2 ... [--setup repo1 repo2 ...]
 
 wget -qO- https://gist.githubusercontent.com/OhadRubin/9cd8594e929ec9ccd66c9022c67ea579/raw/a21677d47edf117a45e2a17043bf4bc02ff95d0a/load_api_keys.sh | bash -s -- $GITHUB_ACCESS_TOKEN > ~/.env
 source ~/.env
@@ -13,6 +13,7 @@ if [ $# -eq 0 ]; then
     echo "Usage: $0 repo1 repo2 ... [--setup repo1 repo2 ...]"
     echo "Example: $0 HemELM vllm --setup HemELM"
     echo "         This will clone both repos but only run setup.sh for HemELM"
+    echo "         Without --setup, repos will only be cloned without running setup.sh"
     exit 1
 fi
 
