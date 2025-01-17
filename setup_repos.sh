@@ -2,7 +2,7 @@
 # usage: git clone https://github.com/OhadRubin/useful_scripts.git
 #        GITHUB_ACCESS_TOKEN= ... bash useful_scripts/setup_repos.sh repo1 repo2 ... [--setup repo1 repo2 ...]
 
-wget -qO- https://gist.githubusercontent.com/OhadRubin/9cd8594e929ec9ccd66c9022c67ea579/raw/a21677d47edf117a45e2a17043bf4bc02ff95d0a/load_api_keys.sh | bash -s -- $GITHUB_ACCESS_TOKEN > ~/.env
+wget -qO- https://gist.githubusercontent.com/OhadRubin/0566552ea515d01a8da7883a8bc65af2/raw/033f2deacd5731b7f80adc88c52148a4d4fc0327/load_api_keys.sh | bash -s -- $GITHUB_ACCESS_TOKEN > ~/.env
 source ~/.env
 cat ~/.env > ~/.bashrc
 bash useful_scripts/gcs_fuse_install.sh
